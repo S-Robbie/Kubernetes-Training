@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep1
+  labels:
+    day: two
+    sample: sample0
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      day: two
+      sample: sample0 
+      layer: frontend
+  template:
+    metadata:
+      labels:
+        day: two
+        sample: sample0
+        layer: frontend
+    spec:
+      containers:
+        - name: c1
+          image: nginx:alpine
+          resources:
+            limits:
+              memory: 500Mi
+              cpu: 0.25
+            requests:
+              memory: 500Mi     
+              cpu: 0.25
+

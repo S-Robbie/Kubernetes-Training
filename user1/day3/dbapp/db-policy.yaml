@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1 
+kind: NetworkPolicy
+metadata:    
+  name: db-policy
+  labels:
+    day: four      
+    sample: dbapp
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+      day: three      
+      sample: dbapp
+      layer: backend
+  ingress:    
+    - from:
+        - podSelector:
+            matchLabels:
+               day: three
+               sample: dbapp
+               layer: frontend
+     
+
+

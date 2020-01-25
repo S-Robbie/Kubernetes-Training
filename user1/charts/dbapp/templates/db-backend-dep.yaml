@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-db-backend-dep
+  labels:
+    day: three
+    sample: dbapp
+    {{- include "db.labels" . | nindent 4 }}
+spec:  
+  replicas: 1
+  selector:
+    matchLabels:
+      day: three
+      sample: dbapp 
+      layer: backend
+    {{- include "db.labels" . | nindent 6}}
+  template:
+    metadata:
+      labels:
+        day: three
+        sample: dbapp
+        layer: backend
+    {{- include "db.labels" . | nindent 8}}
+    spec:
+      volumes:
+        - name: vol1
+          persistentVolumeClaim: 
+            claimName: {{ .Release.Name }}-db-pvc      
+      containers:
+        - name: c1
+          image: postgres:alpine
+          volumeMounts:
+            - name: vol1
+              mountPath: /var/lib/postgresql/data
+          env:
+            - name: POSTGRES_USER
+              value: admin
+            - name: POSTGRES_PASSWORD
+              value: something      
+

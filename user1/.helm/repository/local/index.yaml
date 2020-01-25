@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  dbapp:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2020-01-23T15:49:11.89567044+05:30"
+    description: Adminer frontend Postgresql backend
+    digest: sha256:9360f81217cd692b63de56cb920a2f074941f61c4e74e08fffe4b9ff63c91cfd
+    name: dbapp
+    urls:
+    - http://127.0.0.1:8879/charts/dbapp-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-01-23T12:05:31.31637116+05:30"

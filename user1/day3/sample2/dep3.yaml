@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep3
+  labels:
+    day: three
+    sample: sample2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      day: three
+      sample: sample2 
+      layer: backend
+  template:
+    metadata:
+      labels:
+        day: three
+        sample: sample2
+        layer: backend
+    spec:
+      volumes:
+        - name: vol1
+          persistentVolumeClaim: 
+            claimName: pvc1      
+      containers:
+        - name: c1
+          image: nginx:alpine
+          volumeMounts:
+            - name: vol1
+              mountPath: /data
+         

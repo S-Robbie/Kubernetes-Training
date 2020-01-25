@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep1
+  labels:
+    day: two
+    sample: sample1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      day: two
+      sample: sample1 
+      layer: frontend
+  template:
+    metadata:
+      labels:
+        day: two
+        sample: sample1
+        layer: frontend
+    spec:
+      containers:
+        - name: c1
+          image: nginx:alpine

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-frontend-dep
+  labels:
+    day: three
+    sample: dbapp
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      day: three
+      sample: dbapp 
+      layer: frontend
+  template:
+    metadata:
+      labels:
+        day: three
+        sample: dbapp
+        layer: frontend
+    spec:
+      volumes:
+        - name: vol1
+          secret:
+            secretName: dbsecret      
+      containers:
+        - name: c1
+          image: adminer
+          volumeMounts:
+            - name: vol1
+              mountPath: /my/secrets      
+          env:
+            - name: ADMINER_DEFAULT_SERVER
+              value: db-backend
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  day: three
+                  sample: dbapp
+                  layer: backend
+              topologyKey: kubernetes.io/hostname
+                      
+
+                       
